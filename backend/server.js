@@ -13,14 +13,11 @@ const RTMPconfig = {
         port: config.PORT,
         mediaroot: './media',
         allow_origin: '*',
-        dashboard: {
-            enabled: true,
-            auth: {
-                enabled: true,
-                username: "josephsb",
-                password: "123456"
-            }
-        }
+    },
+    auth: {
+        api: true,
+        api_user: 'admin',
+        api_pass: '123456',
     },
     trans: {
         ffmpeg: config.ffmpeg,
