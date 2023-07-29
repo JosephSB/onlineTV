@@ -13,7 +13,7 @@ const RTMPconfig = {
         port: config.PORT,
         mediaroot: './media',
         allow_origin: '*'
-    },
+    }, 
     trans: {
         ffmpeg: config.ffmpeg,
         tasks: [
