@@ -1,4 +1,6 @@
 const config = require('./config');
+const NodeMediaServer = require('node-media-server');
+const RTMPmodule = require('./modules/RTMP.modules');
 
 const RTMPconfig = {
     rtmp: {
@@ -10,7 +12,7 @@ const RTMPconfig = {
     },
     http: {
         port: config.RTMP.PORT,
-        //mediaroot: './media',
+        mediaroot: './media',
         allow_origin: '*',
     },
     auth: {
@@ -18,7 +20,7 @@ const RTMPconfig = {
         api_user: config.RTMP.API.pass,
         api_pass: config.RTMP.API.user,
     },
-    /*trans: {
+    trans: {
         ffmpeg: config.ffmpeg,
         tasks: [
             {
@@ -31,8 +33,32 @@ const RTMPconfig = {
                 dashKeep: true // to prevent dash file delete after end the stream
             }
         ]
-    }*/
+    }
 
 }
 
-module.exports = RTMPconfig
+const nms = new NodeMediaServer(RTMPconfig)
+
+nms.on('prePublish', async (id, StreamPath, args) => {
+    try {
+        console.log("----------------------START LIVE ----------------------")
+        console.log(id)
+        console.log(StreamPath)
+        console.log(args)
+        const [app, streamKey] = StreamPath.split('/');
+        RTMPmodule.registerStart(streamKey)
+    } catch (error) {
+        console.error('Failed to register start transmission:', error);
+    }
+});
+
+nms.on('donePublish', (id, StreamPath, args) => {
+    try {
+        const [app, streamKey] = StreamPath.split('/');
+        RTMPmodule.registerEnd(streamKey)
+    } catch (error) {
+        console.error('Failed to register start transmission:', error);
+    }
+});
+
+module.exports = nms

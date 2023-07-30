@@ -1,7 +1,5 @@
 const app = require('./src/app');
-const NodeMediaServer = require('node-media-server');
-const RTMPconfig = require('./src/RTMP');
-
+const nms = require('./src/RTMP');
 
 console.log("                                                                                                    ")
 console.log("                                                                                                    ")
@@ -52,5 +50,4 @@ console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 app.listen(app.get("PORT"), () => console.log("server run on port "+app.get("PORT")))
 
-const nms = new NodeMediaServer(RTMPconfig)
 nms.run();
