@@ -41,11 +41,7 @@ const nms = new NodeMediaServer(RTMPconfig)
 
 nms.on('prePublish', async (id, StreamPath, args) => {
     try {
-        console.log("----------------------START LIVE ----------------------")
-        console.log(id)
-        console.log(StreamPath)
-        console.log(args)
-        const [app, streamKey] = StreamPath.split('/');
+        const [empy, app, streamKey] = StreamPath.split('/');
         RTMPmodule.registerStart(streamKey)
     } catch (error) {
         console.error('Failed to register start transmission:', error);
@@ -54,7 +50,7 @@ nms.on('prePublish', async (id, StreamPath, args) => {
 
 nms.on('donePublish', (id, StreamPath, args) => {
     try {
-        const [app, streamKey] = StreamPath.split('/');
+        const [empy, app, streamKey] = StreamPath.split('/');
         RTMPmodule.registerEnd(streamKey)
     } catch (error) {
         console.error('Failed to register start transmission:', error);
