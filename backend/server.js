@@ -1,40 +1,56 @@
+const app = require('./src/app');
 const NodeMediaServer = require('node-media-server');
-const config = require('./src/config');
+const RTMPconfig = require('./src/RTMP');
 
-const RTMPconfig = {
-    rtmp: {
-        port: 1935,
-        chunk_size: 60000,
-        gop_cache: true,
-        ping: 30,
-        ping_timeout: 60
-    },
-    http: {
-        port: config.PORT,
-        mediaroot: './media',
-        allow_origin: '*',
-    },
-    auth: {
-        api: true,
-        api_user: 'admin',
-        api_pass: '123456',
-    },
-    trans: {
-        ffmpeg: config.ffmpeg,
-        tasks: [
-            {
-                app: 'live',
-                hls: true,
-                hlsFlags: '[hls_time=2:hls_list_size=3:hls_flags=delete_segments]',
-                hlsKeep: true, // to prevent hls file delete after end the stream
-                dash: true,
-                dashFlags: '[f=dash:window_size=3:extra_window_size=5]',
-                dashKeep: true // to prevent dash file delete after end the stream
-            }
-        ]
-    }
 
-};
+console.log("                                                                                                    ")
+console.log("                                                                                                    ")
+console.log("                                            XXXXXXXXX                                               ")
+console.log("                                    XXXXXXXXXXXXXXXXXXXXXXXXX                                       ")
+console.log("                                 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                    ")
+console.log("                           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                              ")
+console.log("                         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                            ")
+console.log("                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                          ")
+console.log("                    XXXXXXXXXXXXXXXXXXXXXXXXXXX    XXXXXXXXXXXXXXXXXXXXXXXXX                        ")
+console.log("                  XXXXXXXXXXXXXXXXXXXXXXXX              XXXXXXXXXXXXXXXXXXXXXXX                     ")
+console.log("                 XXXXXXXXXXXXXXXXXXXX                          XXXXXXXXXXXXXXXXX                    ")
+console.log("                XXXXXXXXXXXXXXXXXX           XXXXXXXXXX           XXXXXXXXXXXXXXX                   ")
+console.log("               XXXXXXXXXXXXXXXXXXX        XXXXXXXXXXXXXXXXX           XXXXXXXXXXXX                  ")
+console.log("              XXXXXXXXXXXXXXX          XXXXXXXXXXXXXXXXXXXXXXX         XXXXXXXXXXXX                 ")
+console.log("             XXXXXXXXXXXXXX         XXXXXXXXXXXXXXXXXXXXXXXXXXXXX        XXXXXXXXXXX                ")
+console.log("             XXXXXXXXXX        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       XXXXXXXXX               ")
+console.log("             XXXXXXXXX       XXXX         XXXXXXXXXXXXXXXXX        XXXX       XXXXXXX               ")
+console.log("             XXXXXXXX       XX                XXXXXXXXX               XX       XXXXXX               ")
+console.log("             XXXXXX         XX               XXXXXXXXXX               XX        XXXXX               ")
+console.log("             XXXXXX         XXX             XXXXXXXXXXXX             XXX         XXXX               ")
+console.log("             XXXXX          XXXXX         XXXXXXXXXXXXXXXX         XXXXX          XXX               ")
+console.log("              XXX            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX           XXX               ")
+console.log("              XXX             XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX            XXX               ")
+console.log("              XXX              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX             XXX               ")
+console.log("               XXX               XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX              XXX                ")
+console.log("                  XXX              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX              XXX                  ")
+console.log("                   XXXX                 XXXXXXXXXXXXXXXXXXXX                XXXX                    ")
+console.log("                      XXXX                                              XXXX                        ")
+console.log("                         XXX                                          XXX                           ")
+console.log("                            XXX                                    XXX                              ")
+console.log("                              XXXX                             XXXX                                 ")
+console.log("                                  XXX                       XXX                                     ")
+console.log("                                     XX                   XX                                        ")
+console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+console.log("MMMMMK:  dWMMKl'    cOWMMXd,    :OWMMx'      :KMXc      'l0MMNl  cX0;  dWMWO:    ,oXMMXc     ':OWMMM")
+console.log("MMMMM0'  cNMX:  .;.  ,0MWo  .;'  '0MWd   ':::dXMK,   .;.  ;KMX;  ;XO.  lWM0,  .;.  oWMK,  .;.  ,0MMM")
+console.log("MMMMM0'  cNM0'  cXd  .kMNc  .OO:':0MWd  .kMMMMMMK,   :Kl  .OMX;  ;XO.  lWMO.  cKo''oNMK,  :Xo  .OMMM")
+console.log("MMMMM0'  cNM0'  cNd. .kMWO'  .o0NWWMWd   ;ookNMMK,   ,k:  '0MX;  .c:.  lWMXl  .:kXNWMMK,  .c'  :KMMM")
+console.log("MMMMM0'  cNM0'  cNd. .kMMW0c.  .dXMMWd      ,0MMK,       .oNMX;        lWMMNx'  .:OWMMK,       lNMMM")
+console.log("MMMMM0'  cNM0'  cNd. .kMMWNXOc.  :XMWd  .lkk0WMMK,   .:ld0WMMX;  'do.  lWMWNNKd'  .kWMK,  'xc  .xMMM")
+console.log("MMMMM0'  cNM0'  cNd. .kMNo''oXo  .kMWd  .kMMMMMMK,   :NMMMMMMX;  ;XO.  lWM0;.:00'  :XMK,  :Xk.  oWMM")
+console.log("MMW0o;   oWMX:  .c'  '0MNl  .c,  .OMWd   ;lllxNMK,   :NMMMMMMX;  ;XO.  lWMO'  ,:.  lNMK,  .c,  .xMMM")
+console.log("MMWd. .'oXMMW0:.   .;kWMMKl..  .,kWMMx.      ;KMK:  .cNMMMMMMXc  :X0, .oWMWk,.   .lKMMK;     .,xNMMM")
+console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM  CREATED BY JOSEPHSB  MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+
+app.listen(app.get("PORT"), () => console.log("server run on port "+app.get("PORT")))
 
 const nms = new NodeMediaServer(RTMPconfig)
 nms.run();
