@@ -41,6 +41,10 @@ const nms = new NodeMediaServer(RTMPconfig)
 
 nms.on('prePublish', async (id, StreamPath, args) => {
     try {
+        console.log("----------------------START LIVE ----------------------")
+        console.log(id)
+        console.log(StreamPath)
+        console.log(args)
         const [empy, app, streamKey] = StreamPath.split('/');
         RTMPmodule.registerStart(streamKey)
     } catch (error) {
