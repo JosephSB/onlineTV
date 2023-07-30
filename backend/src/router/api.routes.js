@@ -11,5 +11,6 @@ ApiRouter.post("/auth/login", AuthController.Login)
 //* -------------------STREAM-ROUTES----------------------- */
 ApiRouter.get("/live/start",verifyToken, StreamController.Start)
 //8e98-jaq8-q69c-er7s-bkgs
+ApiRouter.get("/live/listLives", StreamController.ListLives)
 
 module.exports = ApiRouter

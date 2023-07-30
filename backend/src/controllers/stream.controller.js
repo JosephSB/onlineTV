@@ -44,4 +44,32 @@ StreamController.Start = async (req, res) => {
     }
 }
 
+StreamController.ListLives = async (req, res) => {
+    try {
+        const query = `
+            SELECT 
+                ls.live_id, 
+                ls.start_transmission,
+                u.fullname
+            FROM live_streams ls
+            INNER JOIN users u ON (u.user_id = ls.user_id)
+            WHERE end_transmission IS NULL;
+        `
+
+        const resp = await ExecuteRawQuery.query(query);
+
+        const data = resp[0][0];
+
+        res.status(200).send({
+            message: `list active streams`,
+            data: data || []
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(404).send({
+            message: "error"
+        })
+    }
+}
+
 module.exports = StreamController
