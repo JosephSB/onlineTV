@@ -58,7 +58,7 @@ StreamController.ListLives = async (req, res) => {
 
         const resp = await ExecuteRawQuery.query(query);
 
-        const data = resp[0][0];
+        const data = resp[0];
 
         res.status(200).send({
             message: `list active streams`,
